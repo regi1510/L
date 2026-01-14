@@ -1,8 +1,7 @@
-import React, { useRef } from 'react';
+import React, { useRef, useMemo } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Points, PointMaterial } from '@react-three/drei';
-import * as random from 'maath/random/dist/maath-random.esm';
 
 const steps = [
     { 
@@ -31,11 +30,29 @@ const steps = [
     }
 ];
 
+// Inline logic to replace maath/random/inSphere
+function inSphere(positions: Float32Array, { radius = 1 }) {
+  for (let i = 0; i < positions.length; i += 3) {
+    const u = Math.random();
+    const v = Math.random();
+    const theta = 2 * Math.PI * u;
+    const phi = Math.acos(2 * v - 1);
+    const r = Math.cbrt(Math.random()) * radius;
+    const sinPhi = Math.sin(phi);
+    
+    positions[i] = r * sinPhi * Math.cos(theta);
+    positions[i + 1] = r * sinPhi * Math.sin(theta);
+    positions[i + 2] = r * Math.cos(phi);
+  }
+  return positions;
+}
+
 const NeuralNetwork = (props: any) => {
     const ref = useRef<any>(null);
-    // Use 6000 or any multiple of 3 to avoid NaN errors when Three.js computes bounding sphere
-    // (5000 / 3 is not an integer, leading to out-of-bounds reads)
-    const [sphere] = React.useState(() => random.inSphere(new Float32Array(6000), { radius: 1.5 }));
+    
+    const sphere = useMemo(() => {
+        return inSphere(new Float32Array(6000), { radius: 1.5 });
+    }, []);
     
     useFrame((state, delta) => {
         if (ref.current) {
