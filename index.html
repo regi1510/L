@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Nova | Digital Architect</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&family=Syncopate:wght@400;700&display=swap" rel="stylesheet">
@@ -31,6 +32,7 @@
               'fade-in': 'fadeIn 1s ease-out forwards',
               'rotate-slow': 'rotate 20s linear infinite',
               'meteor': 'meteor 5s linear infinite',
+              'pulse-glow': 'pulseGlow 4s ease-in-out infinite',
             },
             keyframes: {
               float: {
@@ -54,6 +56,10 @@
                 "70%": { opacity: "1" },
                 "100%": { transform: "rotate(215deg) translateX(-500px)", opacity: "0" },
               },
+              pulseGlow: {
+                 "0%, 100%": { opacity: "0.5", transform: "translate(-50%, -50%) scale(1)" },
+                 "50%": { opacity: "0.8", transform: "translate(-50%, -50%) scale(1.1)" }
+              }
             }
           },
         },
@@ -112,22 +118,24 @@
   <script type="importmap">
 {
   "imports": {
-    "@react-three/fiber": "https://esm.sh/@react-three/fiber@^9.5.0",
-    "three": "https://esm.sh/three@^0.182.0",
-    "lucide-react": "https://esm.sh/lucide-react@^0.562.0",
-    "framer-motion": "https://esm.sh/framer-motion@^12.26.2",
-    "react-dom/client": "https://esm.sh/react-dom@^19.2.3/client",
-    "@react-three/drei": "https://esm.sh/@react-three/drei@^10.7.7",
-    "react": "https://esm.sh/react@^19.2.3",
-    "maath/": "https://esm.sh/maath@^0.10.8/",
-    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
-    "react/": "https://esm.sh/react@^19.2.3/"
+    "react": "https://esm.sh/react@18.2.0",
+    "react/": "https://esm.sh/react@18.2.0/",
+    "react-dom": "https://esm.sh/react-dom@18.2.0",
+    "react-dom/client": "https://esm.sh/react-dom@18.2.0/client",
+    "react-dom/": "https://esm.sh/react-dom@18.2.0/",
+    "framer-motion": "https://esm.sh/framer-motion@10.16.4?deps=react@18.2.0,react-dom@18.2.0",
+    "@react-three/fiber": "https://esm.sh/@react-three/fiber@8.15.12?deps=three@0.160.0,react@18.2.0,react-dom@18.2.0",
+    "@react-three/drei": "https://esm.sh/@react-three/drei@9.96.1?deps=three@0.160.0,react@18.2.0,react-dom@18.2.0,@react-three/fiber@8.15.12",
+    "three": "https://esm.sh/three@0.160.0",
+    "lucide-react": "https://esm.sh/lucide-react@0.292.0?deps=react@18.2.0",
+    "maath/random/dist/maath-random.esm": "https://esm.sh/maath@0.10.7/random/dist/maath-random.esm?deps=three@0.160.0,react@18.2.0",
+    "maath/": "https://esm.sh/maath@0.10.7/?deps=three@0.160.0,react@18.2.0"
   }
 }
 </script>
 </head>
   <body>
     <div id="root"></div>
-    <script type="module" src="/index.tsx"></script>
+    <script type="text/babel" data-type="module" src="/index.tsx"></script>
   </body>
 </html>

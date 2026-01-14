@@ -22,10 +22,9 @@ const ProjectFlipCard: React.FC<ProjectProps> = ({ title, category, image, descr
     mouseY.set(clientY - top);
   }
 
-  // Use high-quality abstract tech/architecture images if generic ones are passed
-  const displayImage = image.includes("picsum") 
-    ? `https://source.unsplash.com/random/800x1000/?abstract,architecture,geometric,dark&sig=${Math.random()}` 
-    : image;
+  // Use the provided image directly or a safe placeholder if it contains 'picsum'
+  // Note: source.unsplash.com is deprecated/down, so we avoid redirecting to it.
+  const displayImage = image;
 
   return (
     <div 
@@ -65,7 +64,7 @@ const ProjectFlipCard: React.FC<ProjectProps> = ({ title, category, image, descr
            <div className="absolute inset-0 bg-gradient-to-t from-[#0c0a09] via-transparent to-transparent z-10 opacity-90" />
            
            <img 
-            src={image} 
+            src={displayImage} 
             alt={title} 
             className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110 grayscale group-hover:grayscale-0"
            />
