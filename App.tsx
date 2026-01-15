@@ -57,7 +57,8 @@ const App: React.FC = () => {
     <div className="min-h-screen bg-dark text-white selection:bg-primary selection:text-white font-sans overflow-x-hidden relative">
       <MouseFollower />
       
-      <Suspense fallback={<div className="fixed inset-0 bg-dark z-[-1]" />}>
+      {/* Fallback ensures background isn't just black while Three.js loads */}
+      <Suspense fallback={<div className="fixed inset-0 bg-dark z-[-1]"><div className="absolute inset-0 bg-gradient-to-b from-black to-[#1c1917] opacity-80" /></div>}>
         <Background3D />
       </Suspense>
 
